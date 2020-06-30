@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.css"></link>
+  </head>
+  <body>
+
+    <crowd-form style="display: none;">
+        <input name="annotations" id="annotations" type="hidden">
+        <input name="timeElapsed" id="timeElapsed" type="hidden">
+         <!-- Prevent crowd-form from creating its own button -->
+        <crowd-button form-action="submit" style="display: none;"></crowd-button>
+    </crowd-form>
+
+    <div class="mat-app-background basic-container">
+      <ng-home source='10牛ステーキ-20パッケージ-ブランドX' translation='10 beef steak - 20 packages - brand X' id="home">loading</ng-home>
+      <!-- <ng-home source='{{ task.input.source }}' translation='{{ task.input.translatedDesc }}'>loading</ng-home> -->
+    </div>
+  </body>
+</html>
+
+<script>
+  // Instructions code
+  document.addEventListener('DOMContentLoaded', (event) => {
+    var intro = introJs().setOption("showProgress", true);
+    intro.setOptions({
+      steps: [
+        {
+          intro: "Hello! This is an introduction to how to do Food Invoice Labelling. Click Next."
+        },
+        {
+          element: '#step1',
+          intro: 'Read carerefully "Invoice Description" field. This field contains the description of the product received with the invoice in your language (Japaneese in this case).'
+        },
+        {
+          element: '#step2',
+          intro: 'Read carerefully "English Translation" field. This will help you classify it to a Food category.'
+        },
+        {
+          element: '#taxonomy_table',
+          intro: 'Find the relevent category corresponding to the invoice description in the "Food Categories" list bellow.',
+          highlightClass: 'highlight-step',
+          scrollTo: 'tooltip',
+          disableInteraction: false
+        },
+        {
+          element: document.querySelector("html > div > div.global_taxonomy > table > tbody > tr:nth-child(1)"),
+          intro: "Select the row with 'Level 4 = Apples' as this corresponds the best to the invoice description by clicking on it.",
+          scrollTo: 'tooltip',
+          disableInteraction: false
+        },
+        {
+          element: '#submitButton',
+          intro: "When you have category selected, click 'Submit'.",
+          position: 'bottom'
+        },
+        {
+          element: document.querySelector("#step3 > div > div.mat-form-field-flex > div"),
+          intro: "If you can't find the category in the list, use releveant words from 'English Translation' in the 'Filter' field to narrow the category options you can choose from.",
+          position: 'left'
+        }
+      ]
+    });
+    intro.start();
+  })
+
+</script>
+<style>
+  .body {
+    background-color: #fafafa;
+  }
+
+  .header {
+    background: #673ab7;
+      color: #fff;
+      padding: 0 16px;
+      margin: 20px 20px 0px 20px;
+      padding: 20px;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: 30% auto;
+    grid-auto-rows: auto;
+    grid-gap: 1rem;
+    margin: 20px 20px 0px 20px;
+  }
+
+  .card {
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+    display: block;
+    position: relative;
+    padding: 16px;
+    border-radius: 4px;
+    /* margin: 20px 0px 0px 20px; */
+    border: 2px solid #e7e7e7;
+    border-radius: 4px;
+  }
+
+  .highlight-step {
+    background-color: #2515424a;
+    margin: 0px -15px 0px -15px;
+    padding: 15px;
+  }
+</style>

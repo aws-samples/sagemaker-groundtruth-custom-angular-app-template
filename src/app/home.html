@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="body">
+
+  <div class="header">
+    <h2>Food Invoice Labelling</h2>
+    <p>{{timeElapsed | date}}</p>
+  </div>
+  <div class="cards">
+
+      <!-- Invoice Description -->
+      <div class="card" >
+        <div class="card-header">
+          <h3>Invoice Description</h3>
+        </div>
+        <div>
+          <p id="step1">
+            <span>Invoice Description: <br />
+            <b>{{ source }}</b></span>
+          </p>
+          <p style='font-weight: small; color: gray;' id="step2">
+            <span>English Translation: <br /> {{ translation }}</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Instructions -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Instructions</h3>
+        </div>
+        <div>
+          <ul>
+            <li> Read carerefully "Invoice Description" field.</li>
+            <li> Read carerefully "English Translation" field.</li>
+            <li> If needed, use releveant words in the "Filter" field to search for category.</li>
+            <li> Find the right category based on the Level6 value.</li>
+            <li> Select the row in the table and click "Submit".</li>
+          </ul>
+        </div>
+      </div>
+
+  </div>
+
+  <div id="taxonomy_table">
+    <h2>Food Categories</h2>
+
+    <mat-tab-group (selectedIndexChange)="onTabChange($event)">
+      <mat-tab *ngFor="let l2 of Level2List; let index = index" [label]="l2"></mat-tab>
+    </mat-tab-group>
+
+    <mat-form-field id="step3">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+
+    <button mat-button color="primary" (click)="onSubmit()" id="submitButton">Submit</button>
+
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <ng-container matColumnDef="Level1">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Level1 </th>
+        <td mat-cell *matCellDef="let element"> {{element.Level1}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Level2">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Level2 </th>
+        <td mat-cell *matCellDef="let element"> {{element.Level2}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Level3">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Level3 </th>
+        <td mat-cell *matCellDef="let element"> {{element.Level3}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Level4">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Level4 </th>
+        <td mat-cell *matCellDef="let element"> {{element.Level4}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Level5">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Level5 </th>
+        <td mat-cell *matCellDef="let element"> {{element.Level5}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Level6" data-intro='Find the right category based on the Level6 value.' data-step="4">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Level6 </th>
+        <td mat-cell *matCellDef="let element"><b> {{element.Level6}}</b> </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+          (click)="selectRow(row)" [ngClass]="{ 'highlight': row === selectedRow }"></tr>
+    </table>
+
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
+  </div>
+
+</div>

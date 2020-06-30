@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<html>
+  <head>
+    <script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
+  </head>
+  <body>
+
+    <crowd-form style="display: none;">
+        <input name="annotations" id="annotations" type="hidden">
+        <input name="timeElapsed" id="timeElapsed" type="hidden">
+         <!-- Prevent crowd-form from creating its own button -->
+        <crowd-button form-action="submit" style="display: none;"></crowd-button>
+    </crowd-form>
+
+    <div class="mat-app-background basic-container">
+      <!-- Dev Mode to test the Angular Element -->
+      <!-- <ng-home source='10牛ステーキ-20パッケージ-ブランドX' translation='10 beef steak - 20 packages - brand X' id="home">loading</ng-home> -->
+      <ng-home source='{{ task.input.source }}' translation='{{ task.input.translatedDesc }}'>loading</ng-home>
+    </div>
+  </body>
+</html>
+
+<script>
+
+  document.addEventListener("DOMContentLoaded", function(event) {
+    // Counter
+    var enterDate = new Date();
+    function secondsSinceEnter()
+    {
+      return (new Date() - enterDate) / 1000;
+    }
+
+    // GT Form Submitting
+    const component = document.querySelector('ng-home').addEventListener('rowselected', (event) => {
+      // alert(event.detail.CODE);
+      document.getElementById('annotations').value = event.detail.CODE;
+      document.getElementById('timeElapsed').value = secondsSinceEnter();
+      document.querySelector('crowd-form').submit();
+    });
+
+  });
+
+</script>
+<style>
+  .body {
+    background-color: #fafafa;
+  }
+
+  .header {
+    background: #673ab7;
+      color: #fff;
+      padding: 0 16px;
+      margin: 20px 20px 0px 20px;
+      padding: 20px;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: 30% auto;
+    grid-auto-rows: auto;
+    grid-gap: 1rem;
+    margin: 20px 20px 0px 20px;
+  }
+
+  .card {
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+    display: block;
+    position: relative;
+    padding: 16px;
+    border-radius: 4px;
+    /* margin: 20px 0px 0px 20px; */
+    border: 2px solid #e7e7e7;
+    border-radius: 4px;
+  }
+
+  .highlight-step {
+    background-color: #2515424a;
+    margin: 0px -15px 0px -15px;
+    padding: 15px;
+  }
+</style>

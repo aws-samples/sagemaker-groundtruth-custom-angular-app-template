@@ -21,8 +21,8 @@ The approach described in this post also works with [Amazon Augmented AI](https:
 - Clone repository and install pre-requisites
 
     ```
-    git clone https://github.com/enissay14/sagemaker-groundtruth-custom-angular-app.git
-    cd sagemaker-groundtruth-custom-angular-app
+    git clone https://github.com/aws-samples/sagemaker-groundtruth-custom-angular-app-template.git
+    cd sagemaker-groundtruth-custom-angular-app-template
     npm install
     ```
 - Run the app locally
